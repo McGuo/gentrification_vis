@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: A starting point for interactivity</title>
+		<script type="text/javascript" src="d3.js"></script>
+        <style>
+            body { margin:0; padding:0; }
+            #map { position:absolute; top:0; bottom:0; width:100%; }
+        </style>
+        <link rel="stylesheet" href="leaflet.css" />
+        <script src="leaflet.js"></script>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.css' rel='stylesheet' />
+    </head>
+    <body>
+        <div id="tooltip" class="hidden">
+            <p><strong>Important Label Heading</strong></p>
+            <p><span id="value">100</span>%</p>
+        </div>
+        <div id='map'></div>
+        <!-- <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoianJqMDY2NiIsImEiOiJjanp5Z2lzOGgwMGVsM3BwMTYwMjU0azF0In0.5m3rtdD9z38pmeHsHthTAA';
+            var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-122.42, 37.77], // starting position [lng, lat]
+            zoom: 11 // starting zoom
+        });
+        </script> -->
+
+        <script type="text/javascript" src="sfneighborhoods.js"></script>
+
+        <script type="text/javascript">
+            var map = L.map('map').setView([37.77, -122.42], 12);
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox.light'
+            }).addTo(map);
+
+            function onEachFeature(features, layer) {
+            // does this feature have a neighborhood name?
+            if (features.properties && features.properties.neighborhood) {
+                layer.bindTooltip(features.properties.neighborhood);
+	            }
+            }
+
+            var geojson = L.geoJson(sfdata, {
+                onEachFeature: onEachFeature
+            }).addTo(map);
+
+        </script>
+    </body>
+</html>
