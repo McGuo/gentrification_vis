@@ -16,7 +16,6 @@ const csvWriter = createCsvWriter({
     { id: "rating", title: "rating" },
     { id: "transactions", title: "transactions" },
     { id: "price", title: "price" },
-    { id: "location", title: "location" },
     { id: "phone", title: "phone" },
     { id: "latitude", title: "latitude" },
     { id: "longitude", title: "longitude" },
