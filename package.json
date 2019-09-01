@@ -1,0 +1,25 @@
+{
+  "name": "gentrification_vis",
+  "version": "1.0.0",
+  "description": "A D3.js powered data visualization on gentrification",
+  "main": "yelp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McGuo/gentrification_vis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/McGuo/gentrification_vis/issues"
+  },
+  "homepage": "https://github.com/McGuo/gentrification_vis#readme",
+  "dependencies": {
+    "csv-writer": "^1.5.0",
+    "dotenv": "^8.1.0",
+    "jsonexport": "^2.4.1",
+    "yelp-fusion": "^3.0.0"
+  }
+}
