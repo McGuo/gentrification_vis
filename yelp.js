@@ -19,7 +19,8 @@ const csvWriter = createCsvWriter({
     { id: "location", title: "location" },
     { id: "phone", title: "phone" },
     { id: "latitude", title: "latitude" },
-    { id: "longitude", title: "longitude" }
+    { id: "longitude", title: "longitude" },
+    { id: "address", title: "address" }
   ]
 });
 
@@ -34,9 +35,18 @@ client
     //
     let data = response.jsonBody.businesses;
 
+    console.log(data[0]);
+
     data.forEach(element => {
       element.longitude = element.coordinates.longitude;
       element.latitude = element.coordinates.latitude;
+      element.address = element.location.display_address;
+      let string = "";
+
+      element.categories.forEach(category => {
+        string = `${string}${category.alias};`;
+      });
+      element.categories = string;
     });
 
     csvWriter
