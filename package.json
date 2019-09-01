@@ -19,7 +19,6 @@
   "dependencies": {
     "csv-writer": "^1.5.0",
     "dotenv": "^8.1.0",
-    "jsonexport": "^2.4.1",
     "yelp-fusion": "^3.0.0"
   }
 }
