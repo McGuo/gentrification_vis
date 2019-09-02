@@ -29,7 +29,7 @@
         });
         </script> -->
 
-        <script type="text/javascript" src="sfneighborhoods.js"></script>
+        <script type="text/javascript" src="sftracts.js"></script>
 
         <script type="text/javascript">
             var map = L.map('map').setView([37.77, -122.42], 12);
@@ -44,8 +44,8 @@
 
             function onEachFeature(features, layer) {
             // does this feature have a neighborhood name?
-            if (features.properties && features.properties.neighborhood) {
-                layer.bindTooltip(features.properties.neighborhood);
+            if (features.properties && features.properties.NAMELSAD10) {
+                layer.bindTooltip(features.properties.NAMELSAD10);
 	            }
             }
 
