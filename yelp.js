@@ -31,7 +31,7 @@ const yelpAPILoop = async (location, term, limit) => {
   console.log(`Location: ${location}`);
   console.log(`Term: ${term}`);
   try {
-    for (let offset = 0; offset <= 1000; offset = offset + 50) {
+    for (let offset = 0; offset <= 1000; offset += 50) {
       console.log(`We are currently at page: ${Math.round(offset / 50)}`);
       let restaurants = await yelpAPISearch(location, term, limit, offset);
       await writeToCSV(restaurants);
@@ -58,13 +58,10 @@ const yelpAPISearch = async (location, term, limit, offset) => {
     let string = "";
 
     element.categories.forEach(category => {
-      string = `${string}${category.alias};`;
+      string = `${string}${category.alias},`;
     });
     element.categories = string;
   });
-
-  console.log(data);
-
   return data;
 };
 
@@ -73,10 +70,11 @@ wait = async delay => {
     setTimeout(resolve, randomNumber(delay, delay * 2));
   });
 };
+
 randomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-// yelpAPISearch("san francisco", "food", 50, 10);
+// yelpAPISearch("san francisco", "food", 50, 50;
 
 yelpAPILoop("san francisco, ca", "food", 50);
