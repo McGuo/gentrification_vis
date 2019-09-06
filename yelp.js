@@ -20,21 +20,53 @@ const csvWriter = createCsvWriter({
     { id: "latitude", title: "latitude" },
     { id: "longitude", title: "longitude" },
     { id: "address", title: "address" },
-    { id: "offset", title: "offset" }
+    { id: "location_searched", title: "location_searched" }
   ],
   append: "true"
 });
 
+const sf_zip_codes = [
+  94102,
+  94103,
+  94104,
+  94105,
+  94107,
+  94108,
+  94109,
+  94110,
+  94111,
+  94112,
+  94114,
+  94115,
+  94116,
+  94117,
+  94118,
+  94121,
+  94122,
+  94123,
+  94124,
+  94127,
+  94129,
+  94130,
+  94131,
+  94132,
+  94133,
+  94134,
+  94158
+];
+
 const writeDatabase = () => {};
 
-const yelpAPILoop = async (location, term, limit) => {
-  console.log(`Location: ${location}`);
-  console.log(`Term: ${term}`);
+const yelpAPILoop = async (locations, term, limit) => {
   try {
-    for (let offset = 0; offset <= 1000; offset += 50) {
-      console.log(`We are currently at page: ${Math.round(offset / 50)}`);
-      let restaurants = await yelpAPISearch(location, term, limit, offset);
-      await writeToCSV(restaurants);
+    console.log(`Term: ${term}`);
+    for (zipcode of locations) {
+      console.log(`Location: ${zipcode}`);
+      for (let offset = 0; offset < 1000; offset += 50) {
+        console.log(`We are currently at page: ${Math.round(offset / 50)}`);
+        let restaurants = await yelpAPISearch(zipcode, term, limit, offset);
+        await writeToCSV(restaurants);
+      }
     }
   } catch (e) {
     console.log(e);
@@ -54,7 +86,7 @@ const yelpAPISearch = async (location, term, limit, offset) => {
     element.longitude = element.coordinates.longitude;
     element.latitude = element.coordinates.latitude;
     element.address = element.location.display_address;
-    element.offset = offset;
+    element.location_searched = location;
     let string = "";
 
     element.categories.forEach(category => {
@@ -77,4 +109,4 @@ randomNumber = (min, max) => {
 
 // yelpAPISearch("san francisco", "food", 50, 50;
 
-yelpAPILoop("san francisco, ca", "food", 50);
+yelpAPILoop(sf_zip_codes, "food", 50);
